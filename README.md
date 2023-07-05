@@ -3,7 +3,7 @@ __(SSL VAR and SSL Game Component Diagrams)__
 
 This repository contains the AstahUML file with associated classes for the SSL VAR and SSL Game component diagrams. These diagrams depict the architecture of the SSL VAR and SSL Game systems. The diagrams follow an MVC (Model-View-Controller) architecture, with a web interface serving as the view, a controller with a facade pattern, and various services and classes representing the model.
 
-## Services
+## Model
 ### VisionService
 The `VisionService` component is responsible for receiving vision data from an external subsystem called SSLVision. It establishes communication with SSLVision through UDP, utilizing the Protobuf format to transmit data. The primary message produced by this service is a `Frame` object, encapsulating information about the detected ball, teammates, and opponents.
 
@@ -21,24 +21,21 @@ The `CommunicationService` component is responsible for obtaining the strategy d
 ## SSL VAR Component Diagram
 
 The SSL VAR component diagram illustrates the following components:
+![SSL VAR](https://github.com/matheusvtna/SSL-VAR-modeling/assets/42243880/675ea9eb-423d-4c95-9f6b-c44b93fe0bf4)
 
 ### SSL Game Component Diagram
 
 The SSL Game component diagram expands upon the SSL VAR diagram and introduces the following components:
+![SSL GAME](https://github.com/matheusvtna/SSL-VAR-modeling/assets/42243880/60532001-8817-4538-87ec-e7e46d1f7126)
 
-## Protobuf Messages
+## Classes
+The model incorporates the following classes:
 
-The model incorporates the following Protobuf messages defined within their respective classes:
+### Vision
+The `Vision` package defines the structures for vision-related data. It includes classes such as `Ball`, `Robot`, `Field`, and `Frame`, which encapsulate information about the position, velocity, and other relevant attributes of detected objects within the robot soccer field.
 
-### Vision.proto
-The `Vision.proto` file defines the Protobuf message structures for vision-related data. It includes messages such as `Ball`, `Robot`, `Field`, and `Frame`, which encapsulate information about the position, velocity, and other relevant attributes of detected objects within the robot soccer field.
-
-### Referee.proto
-The `Referee.proto` file defines the Protobuf message structures for referee-related data. It follows the specifications provided by the RoboCup SSL for representing referee information during the game.
-
-## Custom Classes
-
-In addition to the Protobuf messages, the model incorporates the following custom classes:
+### Referee
+The `Referee` package defines the structures for referee-related data. It follows the specifications provided by the [RoboCup SSL Game Controller](https://github.com/RoboCup-SSL/ssl-game-controller) for representing referee information during the game.
 
 ### Behavior
 The `Behavior` class represents behavior-related data. It includes attributes such as `vx` (velocity in the x-axis), `vy` (velocity in the y-axis), and `vw` (angular velocity). Instances of this class describe the desired behavior of the robot.
@@ -54,5 +51,11 @@ The `Strategy` class encapsulates the overall strategy for the game. It incorpor
 
 ### RobotPacket
 The `RobotPacket` class represents a packet of data to be transmitted to the robot. It includes a `data` attribute that holds the packet's content as a string.
+
+## View
+The View in the system is implemented as a web user interface (WebUI). It provides an interactive interface for users to visualize and interact with the robot soccer game. The WebUI presents the game-related information, such as the positions of the ball, teammates, and opponents, using intuitive visualizations and user-friendly controls. It enables users to monitor the game progress, make strategic decisions, and observe the effects of their actions.
+
+## Controller
+The Controller in the system is designed using the Facade pattern. Acting as a central point of control, the Controller simplifies the interaction between the View and the underlying services and classes of the system. It encapsulates complex interactions and operations, providing a simplified interface for the View to communicate with the various components. The Facade pattern allows the View to delegate requests and commands to the Controller, which then coordinates the necessary actions and updates between the services, ensuring a streamlined and cohesive flow of information and functionality.
 
 Feel free to explore the AstahUML file and the provided classes to gain a deeper understanding of the system's architecture and the relationships between its components.
